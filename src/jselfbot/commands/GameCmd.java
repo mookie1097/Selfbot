@@ -17,6 +17,7 @@ package jselfbot.commands;
 
 import jselfbot.Command;
 import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.core.entities.Game.GameType;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
@@ -48,10 +49,10 @@ public class GameCmd extends Command {
                 {
                     String[] parts = args.substring(6).trim().split("\\s+",2);
                     args = parts[1];
-                    game = Game.of(args, "http://twitch.tv/"+parts[0]);
+                    game = Game.of(GameType.STREAMING, "http://twitch.tv/"+parts[0]);
                 }
                 else
-                    game = Game.of(args);
+                    game = Game.of(GameType.DEFAULT, args);
                 event.getJDA().getPresence().setGame(game);
                 result = "Game set to "+(game.getUrl()==null ? "Playing": "Streaming")+" `"+args+"`. Note that it will appear to everyone else but will not show in your own client.";
             } catch(Exception e) {

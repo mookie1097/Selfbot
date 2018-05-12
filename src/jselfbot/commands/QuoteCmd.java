@@ -114,7 +114,7 @@ public class QuoteCmd extends Command {
                             builder.setFooter("Sent"+foot, null);
                             builder.setTimestamp(msg.getCreationTime());
                         }
-                        builder.setDescription(msg.getRawContent());
+                        builder.setDescription(msg.getContentRaw());
                         reply(builder.build(), event, follow==null ? null : s -> event.getChannel().sendMessage(follow).queue());
                     }, 
                     f -> tempReply("Failed to retrieve history around `"+messageId+"`", event));

@@ -46,7 +46,7 @@ public class JSelfBot {
                     .setStatus(config.getStatus())
                     .setIdle(true)
                     .buildAsync();
-        } catch(LoginException | IllegalArgumentException | RateLimitedException e) {
+        } catch(LoginException | IllegalArgumentException e) {
             LoggerFactory.getLogger("Config").error(""+e);
         }
     }

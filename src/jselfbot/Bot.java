@@ -80,9 +80,9 @@ public class Bot extends ListenerAdapter {
             return;
 
         boolean isCommand = false;
-        if(event.getMessage().getRawContent().toLowerCase().startsWith(prefixLower))
+        if(event.getMessage().getContentRaw().toLowerCase().startsWith(prefixLower))
         {
-            String[] parts = event.getMessage().getRawContent()
+            String[] parts = event.getMessage().getContentRaw()
                     .substring(prefixLower.length()).trim().split("\\s+",2);
             if(parts.length<2)
                 parts = new String[]{parts[0], ""};
@@ -118,7 +118,7 @@ public class Bot extends ListenerAdapter {
         if(!isCommand)
         {
             StringBuilder builder = new StringBuilder();
-            String content = event.getMessage().getRawContent();
+            String content = event.getMessage().getContentRaw();
             while(true)
             {
                 int index1 = content.indexOf(":");
@@ -140,7 +140,7 @@ public class Bot extends ListenerAdapter {
             }
             builder.append(content);
             content = builder.toString();
-            if(!content.equals(event.getMessage().getRawContent()))
+            if(!content.equals(event.getMessage().getContentRaw()))
                 event.getMessage().editMessage(content).queue();
         }
     }
