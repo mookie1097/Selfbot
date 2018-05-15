@@ -96,6 +96,11 @@ public abstract class Command {
         });
     }
     
+    void postTempReply(String message, MessageReceivedEvent event){
+    	tempReply(message, event);
+    }
+    
+    
     public enum Type {
         DELETE_AND_RESEND, EDIT_ORIGINAL, KEEP_AND_RESEND
     }

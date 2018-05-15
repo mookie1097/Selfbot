@@ -24,6 +24,8 @@ import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.events.ReadyEvent;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import java.io.File;
+
 import org.slf4j.LoggerFactory;
 
 /**
@@ -136,12 +138,23 @@ public class Bot extends ListenerAdapter {
                     builder.append(content.substring(0, index1));
                     builder.append(emoji);
                     content = content.substring(index2+1);
+                    try {
+                    event.getMessage().delete();
+                    event.getChannel().sendFile(new File(emoji)).queue();
+                    }catch (java.lang.IllegalArgumentException e) {
+                    	//print error message
+                    	builder.append(content);
+                        content = builder.toString();
+                        if(!content.equals(event.getMessage().getContentRaw()))
+                           event.getMessage().editMessage(e.getMessage()).queue();
+                    }
+
                 }
             }
-            builder.append(content);
-            content = builder.toString();
-            if(!content.equals(event.getMessage().getContentRaw()))
-                event.getMessage().editMessage(content).queue();
+            //builder.append(content);
+            //content = builder.toString();
+            //if(!content.equals(event.getMessage().getContentRaw()))
+            //   event.getMessage().editMessage(content).queue();
         }
     }
     
