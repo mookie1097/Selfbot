@@ -4,7 +4,7 @@
   <groupId>com.mookbot</groupId>
   <artifactId>Selfbot</artifactId>
   <name>Selfbot</name>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
   <description>Selfbot by vi</description>
   <build>
     <sourceDirectory>src</sourceDirectory>
