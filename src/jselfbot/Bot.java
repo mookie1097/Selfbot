@@ -119,7 +119,8 @@ public class Bot extends ListenerAdapter {
 							event.getChannel().sendFile(file).queue();
 						}
 						else {
-							event.getChannel().sendMessage(content).queue();
+							System.out.println("changed to: " + emoji);
+							event.getChannel().sendMessage(emoji).queue();
 						}
 							
 

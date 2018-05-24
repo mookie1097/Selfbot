@@ -15,6 +15,7 @@
  */
 package jselfbot.commands;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,7 +47,7 @@ public class LogCmd extends Command {
 	@Override
 	protected void execute(String args, MessageReceivedEvent event) {
 		int num = 0;
-		final int test = 3;
+		final int test = 100;
 		try {
 			if (!args.isEmpty())
 				num = Integer.parseInt(args);
@@ -55,28 +56,33 @@ public class LogCmd extends Command {
 			return;
 		}
 		MessageHistory history = event.getChannel().getHistory();
-		 List<Message> list = null;
+		 List<Message> list = new ArrayList<Message>() ;
 
 		try {
 			while (num > 0) {
 				System.out.println("-------- " + num + " --------");
-				list.addAll(history.retrievePast((num % test) * test).complete());
+				list.addAll(history.retrievePast(num % test).complete());
 				
 
 
 					System.out.println("History:");
-					history.getRetrievedHistory()
-							.forEach(m -> System.out.println(m.getAuthor().getName() + ": " + m.getContentRaw()));
+					//history.getRetrievedHistory()
+					//		.forEach(m -> System.out.println(m.getAuthor().getName() + ": " + m.getContentRaw()));
 
 					System.out.println("Printing " + list.size() + " messages.");
 
 					// tempReply("Printing " + listt.size() + " messages.", event);
 
-					list.forEach(m -> System.out.println(m.getAuthor().getName() + ": " + m.getContentRaw()));
+					list.forEach(m ->{ 						
+						String time = m.getCreationTime().toLocalDateTime().toString();
+						String user = m.getAuthor().getName();
+						System.out.println(time + " | " + user + ": " + m.getContentDisplay());
+						});
+					
+					//list.get(1).getEditedTime();
+					System.out.println("Done printing this section");
 
-				//}, failure -> { // if it failed
-				//	System.out.println("Failed retrieve messages.");
-					// tempReply("Failed retrieve messages.", event);});
+
 				
 				num -= test;
 			}
@@ -90,9 +96,10 @@ public class LogCmd extends Command {
 					.forEach(m -> System.out.println(m.getAuthor().getName() + ": " + m.getContentRaw()));
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-
-			System.out.println("Could not retrieve messages.");
+			System.out.println("|Exception occured:");
+			// System.out.println("|" + e.toString() );
+			e.printStackTrace();
+			System.out.println("|Could not retrieve messages.");
 			// tempReply("Could not retrieve messages.", event);
 		}
 		System.out.println("done with log");
